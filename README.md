@@ -19,7 +19,7 @@ Dependensi utama: React, Vite, Tailwind CSS, `dexie`, `dexie-react-hooks`, dan `
 
 ```text
 src/
-  db/db.js          Skema IndexedDB, seed modul, penyimpanan progres/catatan
+  db/db.js          Skema IndexedDB, seed modul, profil siswa, progres/catatan
   data/modules.js   Empat materi Geografi dan bank soal per bab
   App.jsx           Navigasi, dashboard, reader, catatan, evaluasi/kuis
   index.css         Tailwind dan gaya global

@@ -8,6 +8,13 @@ db.version(1).stores({
   notes: '++id, moduleId, updatedAt',
   quizAttempts: '++id, moduleId, score, total, createdAt',
 });
+db.version(2).stores({
+  modules: 'id, number, category, title',
+  progress: 'moduleId, completed, completedAt',
+  notes: '++id, moduleId, updatedAt',
+  quizAttempts: '++id, moduleId, score, total, createdAt',
+  studentProfile: 'id',
+});
 
 db.on('populate', async () => {
   await db.modules.bulkPut(modules);
@@ -15,6 +22,16 @@ db.on('populate', async () => {
 
 export async function ensureModuleSeed() {
   if ((await db.modules.count()) === 0) await db.modules.bulkPut(modules);
+}
+
+export async function ensureStudentProfile() {
+  if (!(await db.studentProfile.get('current'))) {
+    await db.studentProfile.add({ id: 'current', studentName: '', className: 'X', semester: 'Ganjil' });
+  }
+}
+
+export async function saveStudentProfile(profile) {
+  await db.studentProfile.put({ ...profile, id: 'current', updatedAt: new Date().toISOString() });
 }
 
 export async function markModuleComplete(moduleId) {
